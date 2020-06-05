@@ -1,7 +1,10 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 var config = {
   mode: "development",
   watch: true,
-  entry: "./src/index.tsx",
+  entry: ["babel-polyfill", "./src/index.tsx"],
   output: {
     filename: "bundle.js",
     path: __dirname + "/dist"
@@ -13,11 +16,26 @@ var config = {
   module: {
     rules: [
       { test: /\.scss$/, use: [ "style-loader", "css-loader", "sass-loader" ] },
-      { test: /\.tsx?$/, loader: "babel-loader" },
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      // { test: /\.tsx?$/, loader: "babel-loader", exclude: /node_modules/ },
+      // { test: /\.tsx?$/, loader: "ts-loader" },
+      { test: /\.tsx?$/, loaders: ['ts-loader', 'babel-loader'], exclude: /node_modules/ },
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: './200.html',
+    }),
+  ],
+  devServer: {
+    hot: true,
+    historyApiFallback: true,
+  },
 };
 
 module.exports = config;
