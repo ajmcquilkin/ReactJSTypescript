@@ -23,8 +23,12 @@ const setFailure = (message: string) => action(CounterActionTypes.COUNTER_SET_FA
 /**
  * Test API - FOR SIMULATION ONLY
  */
-function exampleAPI() {
+function exampleAPISuccess() {
   return Promise.resolve('Test API');
+}
+
+function exampleAPIFailure() {
+  return Promise.reject(new Error('Test API'));
 }
 
 /**
@@ -34,11 +38,11 @@ export function incrementCounter(): ThunkActionType<void> {
   return (dispatch) => new Promise((resolve, reject) => {
     dispatch(incrementRequest());
 
-    exampleAPI().then(() => {
+    exampleAPISuccess().then(() => {
       dispatch(incrementSuccess());
       resolve();
     }).catch((error: Error) => {
-      console.error(error);
+      console.log(error);
       dispatch(incrementFailure("Couldn't increment counter"));
       reject();
     });
@@ -49,7 +53,7 @@ export function decrementCounter(): ThunkActionType<void> {
   return (dispatch) => new Promise((resolve, reject) => {
     dispatch(decrementRequest());
 
-    exampleAPI().then(() => {
+    exampleAPIFailure().then(() => {
       dispatch(decrementSuccess());
       resolve();
     }).catch((error: Error) => {
@@ -64,7 +68,7 @@ export function setCounter(value: number): ThunkActionType<void> {
   return (dispatch) => new Promise((resolve, reject) => {
     dispatch(setRequest());
 
-    exampleAPI().then(() => {
+    exampleAPISuccess().then(() => {
       dispatch(setSuccess(value));
       resolve();
     }).catch((error: Error) => {

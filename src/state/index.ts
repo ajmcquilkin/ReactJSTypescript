@@ -1,4 +1,6 @@
 // Inspiration: https://github.com/supasate/connected-react-router/blob/master/examples/typescript/
+// Inspiration: https://medium.com/netscape/asynchronous-actions-with-redux-and-typescript-d5ff2d3818d3
+// Inspiration: https://thoughtbot.com/blog/the-case-for-discriminated-union-types-with-typescript
 
 import { combineReducers, Action } from 'redux';
 import { History } from 'history';
@@ -8,12 +10,16 @@ import { ThunkAction } from 'redux-thunk';
 import countReducer from './counters/reducer';
 import { CounterState } from './counters/types';
 
+import errorReducer from './error/reducer';
+import { ErrorState } from './error/types';
+
 /**
  * This interface determines the top-level shape of the redux store
  * This is used by the createRootReducer function as well as by ThunkAction when creating action functions
  */
 export interface RootState {
   count: CounterState,
+  error: ErrorState,
   router: RouterState,
 }
 
@@ -23,6 +29,7 @@ export interface RootState {
  */
 const createRootReducer = (history: History) => combineReducers<RootState>({
   count: countReducer,
+  error: errorReducer,
   router: connectRouter(history),
 });
 

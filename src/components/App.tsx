@@ -17,6 +17,11 @@ interface WelcomeProps {
   decrement: Function;
 }
 
+const handleChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, change: Function) => {
+  event.stopPropagation();
+  change().then(() => {}).catch(() => {});
+};
+
 const Welcome = ({ value, increment, decrement }: WelcomeProps) => (
   <div>
     <div>Hello, world!</div>
@@ -25,8 +30,8 @@ const Welcome = ({ value, increment, decrement }: WelcomeProps) => (
       {' '}
       {value}
     </div>
-    <button type="button" onClick={() => increment()}>Increment</button>
-    <button type="button" onClick={() => decrement()}>Decrement</button>
+    <button type="button" onClick={(e) => handleChange(e, increment)}>Increment</button>
+    <button type="button" onClick={(e) => handleChange(e, decrement)}>Decrement</button>
     <NavLink to="/test">Test</NavLink>
   </div>
 );
