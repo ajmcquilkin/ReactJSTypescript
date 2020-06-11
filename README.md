@@ -4,6 +4,29 @@
 **Created:** 6/4/2020  
 **Description:** A starter Typescript ReactJS app built with Webpack, Babel, and ESLint
 
+## Table of Contents
+
+* [Main Features](#main-features)  
+* [Installation](#installation)  
+* [Usage](#usage)  
+  * [Dev Server](#dev-server)  
+  * [Building](#building)  
+* [Structure](#structure)  
+* [React Redux](#react-redux)  
+  * [Top-level](#top-level)  
+  * ["state" Directory](#state-directory)  
+  * [Sub-directory](#sub-directory)  
+    * [Actions](#actions)  
+    * [Reducer](#reducer)  
+    * [Types](#types)  
+* [React Router](#react-router)  
+* [Redux Loading Functionality](#redux-loading-functionality)  
+  * [Loading Reducer](#loading-reducer)  
+  * [Loading Selector](#loading-selector)  
+* [Redux Error Functionality](#redux-error-functionality)  
+  * [Error Reducer](#error-reducer)  
+  * [Error Selector](#error-selector)  
+
 ## Main Features
 
 * `react-scripts` support
@@ -90,11 +113,11 @@ The `store` directory holds all redux handlers, including actions, reducers, and
     `-- index.ts
 ```
 
-### React Redux
+## React Redux
 
 This app is enabled natively with [react-redux](https://www.npmjs.com/package/react-redux), which allows the site to manage and update a top-level state separate from any ReactJS components. This modification is done with a [standard redux setup](https://redux.js.org/introduction/getting-started), and type-safe actions are created for use in this setup with the [typesafe-actions](https://www.npmjs.com/package/typesafe-actions) package.
 
-#### Top-level
+### Top-level
 
 This redux state is created in the `src/index.ts` file, which contains calls to configure and implement this redux state.
 
@@ -130,7 +153,7 @@ ReactDOM.render(
 );
 ```
 
-#### "state" Directory
+### "state" Directory
 
 Besides the creation of the redux store, all other redux-related functionality is located in the `src/store` directory. This allows for a cleaner final folder structure in the main `src` directory as well as for easy access to relevant files with in each sub-route in the store.
 
@@ -166,7 +189,7 @@ This file also defines the shape of a [redux thunk](https://www.npmjs.com/packag
 export type ThunkActionType<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<String>>;
 ```
 
-#### Sub-directory
+### Sub-directory
 
 Each sub-directory within the `state` directory holds all files required to manage the branch of the main redux state (i.e. the `state/counters` directory manages the `counters` key within the redux state and any associated data). This is done through the use of three files:
 
@@ -176,7 +199,7 @@ Each sub-directory within the `state` directory holds all files required to mana
 
 As an example this section will use the `counter` subdirectory and more specifically the *set counter* functionality.
 
-##### Actions
+#### Actions
 
 The `actions.ts` file holds functions that create and dispatch [redux actions](https://redux.js.org/basics/actions/), which can use `redux-thunk` to load data from asynchronous data sources.
 
@@ -216,7 +239,7 @@ export function setCounter(value: number): ThunkActionType<void> {
 }
 ```
 
-##### Reducer
+#### Reducer
 
 The `reducer.ts` file processes the actions dispatched within the `counters/actions.ts` file, and updates the state as required by each action.
 
@@ -255,7 +278,7 @@ return Object.assign({}, state, { value: newValue });
 return ({ ...state, value: newValue });
 ```
 
-##### Types
+#### Types
 
 Supporting both the `actions.ts` and the `reducer.ts` files are they types defined in `counters/types.ts`, which hold the required interfaces and types to ensure static typing can be used.
 
@@ -311,7 +334,7 @@ export interface CounterState {
 }
 ```
 
-### React Router
+## React Router
 
 This app is configured to support [react-router-dom](https://www.npmjs.com/package/react-router-dom) natively, which is modified with [conneced-react-router](https://www.npmjs.com/package/connected-react-router). React router allows for URL switching within the browser's history without reloading, and `connected-react-router` allows for this history to be stored within the redux state. This means that containers can access the current URL location with the `connect` function even if they are outside the scope of the connected router.
 
@@ -335,11 +358,11 @@ Within the `<App />` component in `components/app` the normal `<BrowserRouter>..
 </ConnectedRouter>
 ```
 
-### Redux Loading Functionality
+## Redux Loading Functionality
 
 Checking whether or not action requests are loading can easily become cumbersome and messy, requiring significant overhead and added complexity. This app addresses this through a custom `loading` reducer structure, which automatically processes all dispatches and tracks whether the given request is loading or has completed.
 
-#### Loading Reducer
+### Loading Reducer
 
 This tracking is done through regex matching of action types against the possible states of those dispatches. Requests can be in three states:
 
@@ -361,7 +384,7 @@ const reducer: Reducer<LoadingState> = (state = initialState, action) => {
 };
 ```
 
-#### Loading Selector
+### Loading Selector
 
 This loading information can be accessed directly from redux's `connect` function, but this is not always the best option since a given request may or may not have a loading state, for example. To address this, the `loading/actions.ts` file contains a `createLoadingSelector` function which allows for the easy extraction of the loading state of action dispatches.
 
@@ -383,11 +406,11 @@ const welcomeMapStateToProps = (state: { isLoading: boolean }) => ({
 });
 ```
 
-### Redux Error Functionality
+## Redux Error Functionality
 
 The same problem exists with holding and tracking error messages as exists with tracking loading, since holding error messages in state or even each reducer state makes for significant overhead. This app contains functionality very similar to the `loading` reducer which automatically pulls error messages from `..._FAILURE` action dispatches and saves them to the `error` redux reducer.
 
-#### Error Reducer
+### Error Reducer
 
 The matching process for error reducing is funcionally identical to the `loading` reducer except for the fact that the action expects both a type and a string payload in the action. This string payload represents a string error message, and is required to track the errors.
 
@@ -403,7 +426,7 @@ const reducer: Reducer<ErrorState, { type: string, payload: string }> = (state =
 };
 ```
 
-#### Error Selector
+### Error Selector
 
 Selecting errors works identically to selecting loading, except for the fact that instead of returning a `boolean` for the loading state of the selection it will return the first error message the selector finds associated with an action type.
 
