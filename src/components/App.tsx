@@ -8,6 +8,7 @@ import { RootState } from '../state';
 import { incrementCounter, decrementCounter } from '../state/counters/actions';
 
 import { clearError, createErrorSelector } from '../state/error/actions';
+import { createLoadingSelector } from '../state/loading/actions';
 
 /**
  * A basic connected welcome component with redux count example
@@ -16,14 +17,16 @@ import { clearError, createErrorSelector } from '../state/error/actions';
 interface WelcomeProps {
   value: number;
   errorMessage: string;
+  isLoading: boolean;
 
   increment: Function;
   decrement: Function;
   clearErr: Function;
 }
 
-const watchedActions: string[] = ['@@counters/COUNTER_DECREMENT'];
+const watchedActions: string[] = ['@@counters/COUNTER_INCREMENT', '@@counters/COUNTER_DECREMENT'];
 const errorSelector = createErrorSelector(watchedActions);
+const loadingSelector = createLoadingSelector(watchedActions);
 
 const handleChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, change: Function) => {
   event.stopPropagation();
@@ -31,7 +34,7 @@ const handleChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, ch
 };
 
 const Welcome = ({
-  value, errorMessage, increment, decrement, clearErr,
+  value, errorMessage, isLoading, increment, decrement, clearErr,
 }: WelcomeProps) => (
   <div>
     <div>Hello, world!</div>
@@ -41,7 +44,7 @@ const Welcome = ({
       {value}
     </div>
 
-    <div>{errorMessage}</div>
+    <div>{isLoading ? 'Loading...' : errorMessage}</div>
 
     <button type="button" onClick={(e) => { clearErr(watchedActions); handleChange(e, increment); }}>Increment</button>
     <button type="button" onClick={(e) => { clearErr(watchedActions); handleChange(e, decrement); }}>Decrement</button>
@@ -52,6 +55,7 @@ const Welcome = ({
 const welcomeMapStateToProps = (state: RootState) => ({
   value: state.count.value,
   errorMessage: errorSelector(state),
+  isLoading: loadingSelector(state),
 });
 
 const WelcomeRedux = connect(welcomeMapStateToProps, { increment: incrementCounter, decrement: decrementCounter, clearErr: clearError })(Welcome);

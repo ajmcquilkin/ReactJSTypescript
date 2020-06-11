@@ -24,7 +24,9 @@ const setFailure = (message: string) => action(CounterActionTypes.COUNTER_SET_FA
  * Test API - FOR SIMULATION ONLY
  */
 function exampleAPISuccess() {
-  return Promise.resolve('Test API');
+  return new Promise((resolve) => {
+    setTimeout(() => { resolve('Test API'); }, 1000);
+  });
 }
 
 function exampleAPIFailure() {
