@@ -24,17 +24,17 @@ var config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: '../public/index.html',
       filename: './index.html',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: '../public/index.html',
       filename: './200.html',
     }),
   ],
   devServer: {
-    hot: true,
-    historyApiFallback: true,
+    // hot: true,
+    // historyApiFallback: true,
   },
 };
 
