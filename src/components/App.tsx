@@ -7,22 +7,32 @@ import { History } from 'history';
 import { RootState } from '../state';
 import { incrementCounter, decrementCounter } from '../state/counters/actions';
 
+import { clearError, createErrorSelector } from '../state/error/actions';
+
 /**
  * A basic connected welcome component with redux count example
  * Uses react-redux's connect() function and checks for corresponding props
  */
 interface WelcomeProps {
   value: number;
+  errorMessage: string;
+
   increment: Function;
   decrement: Function;
+  clearErr: Function;
 }
+
+const watchedActions: string[] = ['@@counters/COUNTER_DECREMENT'];
+const errorSelector = createErrorSelector(watchedActions);
 
 const handleChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, change: Function) => {
   event.stopPropagation();
   change().then(() => {}).catch(() => {});
 };
 
-const Welcome = ({ value, increment, decrement }: WelcomeProps) => (
+const Welcome = ({
+  value, errorMessage, increment, decrement, clearErr,
+}: WelcomeProps) => (
   <div>
     <div>Hello, world!</div>
     <div>
@@ -30,17 +40,21 @@ const Welcome = ({ value, increment, decrement }: WelcomeProps) => (
       {' '}
       {value}
     </div>
-    <button type="button" onClick={(e) => handleChange(e, increment)}>Increment</button>
-    <button type="button" onClick={(e) => handleChange(e, decrement)}>Decrement</button>
+
+    <div>{errorMessage}</div>
+
+    <button type="button" onClick={(e) => { clearErr(watchedActions); handleChange(e, increment); }}>Increment</button>
+    <button type="button" onClick={(e) => { clearErr(watchedActions); handleChange(e, decrement); }}>Decrement</button>
     <NavLink to="/test">Test</NavLink>
   </div>
 );
 
 const welcomeMapStateToProps = (state: RootState) => ({
   value: state.count.value,
+  errorMessage: errorSelector(state),
 });
 
-const WelcomeRedux = connect(welcomeMapStateToProps, { increment: incrementCounter, decrement: decrementCounter })(Welcome);
+const WelcomeRedux = connect(welcomeMapStateToProps, { increment: incrementCounter, decrement: decrementCounter, clearErr: clearError })(Welcome);
 
 /**
  * A component that tests passing in props from a <Route /> component
