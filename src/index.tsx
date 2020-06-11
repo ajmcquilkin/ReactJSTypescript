@@ -13,11 +13,14 @@ import { createBrowserHistory } from 'history';
 import App from './components/App';
 import createRootReducer from './state';
 
+// This will be accessable from the redux store
 const history = createBrowserHistory();
 
+// Type-safe check to see if window contains "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__" function key
 const composeEnhancers = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
+// Create redux store with rootReducer and apply thunk and history middleware
 const store = createStore(
   createRootReducer(history), {},
   composeEnhancers(
@@ -26,6 +29,7 @@ const store = createStore(
   ),
 );
 
+// Allow the react app to access this store
 ReactDOM.render(
   <Provider store={store}>
     <App history={history} />

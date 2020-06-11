@@ -7,6 +7,10 @@ import { History } from 'history';
 import { RootState } from '../state';
 import { incrementCounter, decrementCounter } from '../state/counters/actions';
 
+/**
+ * A basic connected welcome component with redux count example
+ * Uses react-redux's connect() function and checks for corresponding props
+ */
 interface WelcomeProps {
   value: number;
   increment: Function;
@@ -33,6 +37,9 @@ const welcomeMapStateToProps = (state: RootState) => ({
 
 const WelcomeRedux = connect(welcomeMapStateToProps, { increment: incrementCounter, decrement: decrementCounter })(Welcome);
 
+/**
+ * A component that tests passing in props from a <Route /> component
+ */
 interface TestProps {
   testString: string;
 }
@@ -49,6 +56,9 @@ const Test = ({ testString }: TestProps) => (
   </div>
 );
 
+/**
+ * A demo 404 component with a <NavLink /> back to home
+ */
 const Fallback = () => (
   <div>
     Page not found
@@ -56,6 +66,10 @@ const Fallback = () => (
   </div>
 );
 
+/**
+ * This history is loaded from the redux state in src/index.ts
+ * When the URL location within the app changes, this will be logged to redux
+ */
 interface AppProps {
   history: History;
 }

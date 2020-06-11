@@ -1,9 +1,5 @@
 // Inspiration: https://redux.js.org/recipes/usage-with-typescript/
 
-// import axios from 'axios';
-// import { Action } from 'redux';
-// import { ThunkAction } from 'redux-thunk';
-
 import { action } from 'typesafe-actions';
 
 import { ThunkActionType } from '..';
