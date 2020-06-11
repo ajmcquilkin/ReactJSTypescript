@@ -72,6 +72,7 @@ const Test = ({ testString }: TestProps) => (
     This is a test of
     {' '}
     <code>react-router-dom</code>
+    {' '}
     with test prop
     {' '}
     {testString}
