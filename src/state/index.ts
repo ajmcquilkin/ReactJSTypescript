@@ -13,12 +13,16 @@ import { CounterState } from './counters/types';
 import errorReducer from './error/reducer';
 import { ErrorState } from './error/types';
 
+import loadingReducer from './loading/reducer';
+import { LoadingState } from './loading/types';
+
 /**
  * This interface determines the top-level shape of the redux store
  * This is used by the createRootReducer function as well as by ThunkAction when creating action functions
  */
 export interface RootState {
   count: CounterState,
+  loading: LoadingState,
   error: ErrorState,
   router: RouterState,
 }
@@ -29,6 +33,7 @@ export interface RootState {
  */
 const createRootReducer = (history: History) => combineReducers<RootState>({
   count: countReducer,
+  loading: loadingReducer,
   error: errorReducer,
   router: connectRouter(history),
 });
