@@ -2,7 +2,7 @@
   "name": "react-js-typescript",
   "version": "1.0.0",
   "description": "A ReactJS template repository built based on Microsoft's TypeScript system. Based on the following link: https://medium.com/swlh/setting-up-a-react-typescript-sass-webpack-and-babel-7-project-in-6-steps-b4d172d1d0d6",
-  "main": "index.js",
+  "main": "index.tsx",
   "repository": "https://github.com/ajmcquilkin/ReactJSTypescript.git",
   "author": "ajmcquilkin <46639306+ajmcquilkin@users.noreply.github.com>",
   "license": "None",
