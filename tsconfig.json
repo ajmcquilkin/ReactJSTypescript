@@ -2,6 +2,9 @@
   "compilerOptions": {
     "outDir": "dist/",
     "baseUrl": "./src",
+    "paths": {
+      "testUtils": ["./testUtils.tsx"],
+    },
     "sourceMap": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
