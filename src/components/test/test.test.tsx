@@ -5,11 +5,13 @@
 
 // API reference: https://testing-library.com/docs/react-testing-library/cheatsheet
 // API reference: https://github.com/testing-library/jest-dom
+// API reference: https://github.com/testing-library/user-event
 
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 
 import Test from '.';
@@ -42,7 +44,7 @@ describe('Test', () => {
 
   it('redirects correctly to the homepage', () => {
     const { container } = renderWithRouter(<Test testString={testMessage} />);
-    fireEvent.click(screen.getByRole('navigation'), new MouseEvent('click', { bubbles: true }));
+    userEvent.click(screen.getByRole('navigation'));
     expect(container.innerHTML).toMatch(/Hello, world!/gi);
   });
 });
