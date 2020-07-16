@@ -20,7 +20,7 @@ const reducer: Reducer<CounterState> = (state = initialState, action) => {
     } case CounterActionTypes.COUNTER_DECREMENT_SUCCESS: {
       return { ...state, value: state.value - 1 };
     } case CounterActionTypes.COUNTER_SET_SUCCESS: {
-      return { ...state, value: state.value + 1 };
+      return { ...state, value: action.payload };
     } default: {
       return state;
     }
