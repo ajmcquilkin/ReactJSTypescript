@@ -11,7 +11,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import createRootReducer from './state';
 
-import App from './components/App';
+import App from './components/app';
 
 /**
  * This will be accessable from the redux store
