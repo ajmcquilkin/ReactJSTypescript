@@ -1,4 +1,4 @@
-import { Action, AnyAction } from 'redux';
+import { Action } from 'redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 

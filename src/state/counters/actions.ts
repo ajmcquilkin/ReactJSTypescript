@@ -43,8 +43,8 @@ export function incrementCounter(): ThunkActionType<void> {
     exampleAPISuccess().then(() => {
       dispatch(incrementSuccess());
       resolve();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }).catch((error: Error) => {
-      console.log(error);
       dispatch(incrementFailure("Couldn't increment counter"));
       reject();
     });
@@ -58,8 +58,8 @@ export function decrementCounter(): ThunkActionType<void> {
     exampleAPIFailure().then(() => {
       dispatch(decrementSuccess());
       resolve();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }).catch((error: Error) => {
-      // console.error(error);
       dispatch(decrementFailure("Couldn't decrement counter"));
       reject();
     });
@@ -73,9 +73,9 @@ export function setCounter(value: number): ThunkActionType<void> {
     exampleAPISuccess().then(() => {
       dispatch(setSuccess(value));
       resolve();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }).catch((error: Error) => {
-      console.error(error);
-      dispatch(setFailure("Couldn't decrement counter"));
+      dispatch(setFailure("Couldn't set counter"));
       reject();
     });
   });
