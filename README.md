@@ -231,7 +231,6 @@ export function setCounter(value: number): ThunkActionType<void> {
       dispatch(setSuccess(value));
       resolve();
     }).catch((error: Error) => {
-      console.error(error);
       dispatch(setFailure("Couldn't decrement counter"));
       reject();
     });
