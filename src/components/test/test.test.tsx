@@ -1,5 +1,6 @@
 // Reference: https://testing-library.com/docs/react-testing-library/example-intro
 // Reference: https://blog.sapegin.me/all/react-testing-3-jest-and-react-testing-library/
+// Reference: https://jestjs.io/docs/en/setup-teardown.html
 
 // Style reference: https://kentcdodds.com/blog/common-mistakes-with-react-testing-library
 
@@ -16,6 +17,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 import Test from '.';
 
+// Use if testing with DB, etc... (see reference above)
 beforeEach(() => {});
 beforeAll(() => {});
 afterEach(() => {});
@@ -44,7 +46,7 @@ describe('Test', () => {
 
   it('redirects correctly to the homepage', () => {
     const { container } = renderWithRouter(<Test testString={testMessage} />);
-    userEvent.click(screen.getByRole('navigation'));
+    userEvent.click(screen.getByRole('link'));
     expect(container.innerHTML).toMatch(/Hello, world!/gi);
   });
 });
