@@ -8,17 +8,17 @@ import { CounterActionTypes } from './types';
 /**
  * Type-safe action creators for request, success, and failure
  */
-const incrementRequest = () => action(CounterActionTypes.COUNTER_INCREMENT_REQUEST);
-const incrementSuccess = () => action(CounterActionTypes.COUNTER_INCREMENT_SUCCESS);
-const incrementFailure = (message: string) => action(CounterActionTypes.COUNTER_INCREMENT_FAILURE, message);
+export const incrementRequest = () => action(CounterActionTypes.COUNTER_INCREMENT_REQUEST);
+export const incrementSuccess = () => action(CounterActionTypes.COUNTER_INCREMENT_SUCCESS);
+export const incrementFailure = (message: string) => action(CounterActionTypes.COUNTER_INCREMENT_FAILURE, message);
 
-const decrementRequest = () => action(CounterActionTypes.COUNTER_DECREMENT_REQUEST);
-const decrementSuccess = () => action(CounterActionTypes.COUNTER_DECREMENT_SUCCESS);
-const decrementFailure = (message: string) => action(CounterActionTypes.COUNTER_DECREMENT_FAILURE, message);
+export const decrementRequest = () => action(CounterActionTypes.COUNTER_DECREMENT_REQUEST);
+export const decrementSuccess = () => action(CounterActionTypes.COUNTER_DECREMENT_SUCCESS);
+export const decrementFailure = (message: string) => action(CounterActionTypes.COUNTER_DECREMENT_FAILURE, message);
 
-const setRequest = () => action(CounterActionTypes.COUNTER_SET_REQUEST);
-const setSuccess = (value: number) => action(CounterActionTypes.COUNTER_SET_SUCCESS, value);
-const setFailure = (message: string) => action(CounterActionTypes.COUNTER_SET_FAILURE, message);
+export const setRequest = () => action(CounterActionTypes.COUNTER_SET_REQUEST);
+export const setSuccess = (value: number) => action(CounterActionTypes.COUNTER_SET_SUCCESS, value);
+export const setFailure = (message: string) => action(CounterActionTypes.COUNTER_SET_FAILURE, message);
 
 /**
  * Test API - FOR SIMULATION ONLY
@@ -59,7 +59,7 @@ export function decrementCounter(): ThunkActionType<void> {
       dispatch(decrementSuccess());
       resolve();
     }).catch((error: Error) => {
-      console.error(error);
+      // console.error(error);
       dispatch(decrementFailure("Couldn't decrement counter"));
       reject();
     });
