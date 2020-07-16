@@ -20,7 +20,7 @@ const Test: React.FC<TestProps> = ({ testString }) => (
       {testString}
     </div>
 
-    <NavLink to="/">Home</NavLink>
+    <NavLink to="/" role="navigation">Home</NavLink>
   </div>
 );
 
