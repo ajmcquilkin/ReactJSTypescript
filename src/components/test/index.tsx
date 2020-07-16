@@ -10,16 +10,16 @@ interface TestProps {
 
 const Test: React.FC<TestProps> = ({ testString }) => (
   <div>
-    This is a test of
-    {' '}
-    <code>react-router-dom</code>
-    {' '}
-    with test prop
-    {' '}
-    {testString}
+    <div id="test-content">
+      This is a test of
+      {' '}
+      <code>react-router-dom</code>
+      {' '}
+      with test prop
+      {' '}
+      {testString}
+    </div>
 
-    {/* Demo process.env */}
-    {process.env.PUBLIC_URL}
     <NavLink to="/">Home</NavLink>
   </div>
 );

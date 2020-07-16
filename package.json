@@ -13,7 +13,7 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^7.1.2",
     "@types/anymatch": "^1.3.1",
     "@types/jest": "^24.0.0",
@@ -63,7 +63,8 @@
     "webpack:dev": "npx webpack --config webpack.config.js",
     "webpack:start": "webpack-dev-server --content-base ./dist --hot --inline --colors --port 3000",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "browserslist": {
     "production": [
