@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "dist/",
-    "baseUrl": "./src",
-    "paths": {
-      "testUtils": ["./testUtils.tsx"],
-    },
     "sourceMap": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
@@ -22,7 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true

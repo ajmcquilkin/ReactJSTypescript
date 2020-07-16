@@ -2,6 +2,7 @@
 // // Reference: https://redux.js.org/recipes/writing-tests/#connected-components
 
 import React from 'react';
+import { Action } from 'redux';
 import { createMemoryHistory } from 'history';
 import { Router, Route } from 'react-router-dom';
 
@@ -26,7 +27,7 @@ import { render } from '@testing-library/react';
 // export * from '@testing-library/react';
 // export { render };
 
-export default function renderWithRouter(children: JSX.Element, renderOptions?: any) {
+export function renderWithRouter(children: JSX.Element, renderOptions?: any) {
   const history = createMemoryHistory();
   return {
     ...render(
@@ -38,3 +39,7 @@ export default function renderWithRouter(children: JSX.Element, renderOptions?: 
     ),
   };
 }
+
+export const emptyAction: Action = {
+  type: '',
+};

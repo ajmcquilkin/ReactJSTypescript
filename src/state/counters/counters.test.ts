@@ -1,10 +1,11 @@
-import { Action } from 'redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import * as actions from './actions';
 import reducer from './reducer';
 import { CounterActionTypes } from './types';
+
+import { emptyAction } from '../../test-utils';
 
 /* ------------ Actions ------------ */
 
@@ -67,17 +68,13 @@ describe('Counter actions', () => {
 
 /* ------------ Reducer ------------ */
 
-const dummyAction: Action = {
-  type: '',
-};
-
 const initialReducerState = {
   value: 15,
 };
 
 describe('Counter reducer', () => {
   it('intializes with correct initial state', () => {
-    expect(reducer(initialReducerState, dummyAction))
+    expect(reducer(initialReducerState, emptyAction))
       .toEqual({ value: 15 });
   });
 
