@@ -63,6 +63,7 @@ const mockStore = configureStore(middlewares);
 
 describe('Post actions', () => {
   let store: MockStoreEnhanced<unknown, {}>;
+  let nockConfig: nock.Interceptor;
 
   beforeAll(() => {
     store = mockStore({
@@ -70,17 +71,23 @@ describe('Post actions', () => {
       error: {},
       posts: {},
     });
+
+    nockConfig = nock('https://jsonplaceholder.typicode.com').get('posts/1');
   });
 
   const testPostID = '1';
 
   it('sends get post action correctly', () => store.dispatch(actions.getPost(testPostID) as any).then(() => {
+    nockConfig.reply(200, demoPost);
+
     const actionHistory = store.getActions();
     expect(actionHistory[0]).toEqual(actions.getPostRequest());
     expect(actionHistory[1]).toEqual(actions.getPostSuccess(testPostID));
   }));
 
   it('catches post server error correctly', () => store.dispatch(actions.getPost() as any).catch(() => {
+    nockConfig.reply(500, demoPost);
+
     const actionHistory = store.getActions();
     expect(actionHistory[0]).toEqual(actions.getPostRequest());
     expect(actionHistory[1]).toEqual(actions.getPostFailure('Test Failure Message'));
